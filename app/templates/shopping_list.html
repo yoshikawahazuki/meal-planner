@@ -1,0 +1,41 @@
+<!-- app/templates/shopping_list.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>買い物リスト</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+
+<body>
+    <div class="container shopping-page">
+        <nav class="breadcrumb">
+            <a href="/">ホーム</a> <span>&gt;</span> <a href="/menu">献立カレンダー</a> <span>&gt;</span> 買い物リスト
+        </nav>
+    <header class="menu-header">
+        <h1>買い物リスト</h1>
+        <nav class="menu-nav">
+            <a href="/menu" class="nav-item secondary">
+                <span class="icon">📅</span> 献立カレンダー
+            </a>
+        </nav>
+    </header>
+
+    <div class="shopping-card">
+    <div class="shopping-list-container">
+        {% for ing in ingredients %}
+        <div class="shopping-item">
+            <label class="check-item">
+                <input type="checkbox">
+                <span class="ing-name">{{ ing.name }}</span>
+            </label>
+            <span class="spacer-dots"></span> <span class="ing-amount">
+                {{ ing.quantity if ing.quantity % 1 != 0 else ing.quantity | int }} {{ ing.unit }}
+            </span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>献立追加</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+    <div class="container"> <nav class="breadcrumb">
+        <a href="/">ホーム</a> <span>&gt;</span> <a href="/menu">献立カレンダー</a> <span>&gt;</span> 献立編集
+    </nav>
+    <h1>献立を編集する</h1>
+
+    <form method="post" class="menu-form">
+
+        {% for timing in ["朝","昼","夜"] %}
+            <h2 class="timing-title">{{ timing }}</h2>
+            <div class="day-grid">
+                {% for day in ["月","火","水","木","金","土","日"] %}
+                <div class="menu-add-card">
+                    <div class="day-header">{{ day }}</div>
+                    <div class="card-content">
+                        {% for category, recipes in recipe_map[timing].items() %}
+                            <p class="category-label">
+                                {% if category == "main" %}主菜{% elif category == "side" %}副菜{% else %}汁物{% endif %}
+                            </p>
+                            <div class="recipe-options">
+                                {% for r in recipes %}
+                                    <label class="recipe-check-label">
+                                        <input type="checkbox" name="{{ category }}_{{ day }}_{{ timing }}" value="{{ r.id }}"
+                                            {% if selected_map.get(day ~ '_' ~ timing) and r.id in selected_map.get(day ~ '_' ~ timing) %}
+                                                checked
+                                            {% endif %}
+                                        ><span>{{ r.name }}</span>
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    
+        <div class="form-actions">  
+            <button type="submit" class="button-green">登録</button>
+        </div>
+    </form>
+</body>
+
+</html>

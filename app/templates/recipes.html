@@ -1,0 +1,55 @@
+<!-- app/templates/recipes.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>レシピ一覧</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+    <div class="container recipe-page">
+    <nav class="breadcrumb">
+        <a href="/">ホーム</a> <span>&gt;</span> レシピ一覧
+    </nav>
+    <header class="recipe-header">
+        <h1>レシピ一覧</h1>
+        <a href="/recipes/add" class="button-green">+ 新しいレシピ</a>
+    </header>
+
+
+        <div class="recipe-grid">
+            {% for recipe in recipes %}
+                <div class="recipe-card">
+                    <div class="recipe-card-body">
+                        <a href="/recipes/{{ recipe.id }}" class="recipe-link">
+                            <h2 class="recipe-title">{{ recipe.name }}</h2>
+                        </a>
+
+                        <div class="recipe-tags">
+                            <div class="tag-group time-tags">
+                                {% for t in recipe.time_list %}
+                                    <span class="tag tag-time">{{ t }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="tag-group dish-tags">
+                                {% for d in recipe.dish_list %}
+                                    <span class="tag tag-dish category-{{ d }}">{{ d }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-card-footer">
+                        <a href="/recipes/{{ recipe.id }}/edit" class="btn-text edit">編集</a>
+                        <form action="/recipes/{{ recipe.id }}/delete" method="POST" onsubmit="return confirm('削除してもいいですか？');" style="display:inline; ">
+                            <button type="submit" class="btn-text delete" >削除</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

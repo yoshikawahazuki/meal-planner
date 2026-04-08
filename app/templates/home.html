@@ -1,0 +1,50 @@
+<!-- app/templates/home.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ホーム - Meal Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+    <div class="container home-page">
+        <header class="home-header">
+            <h1 class="logo-text">Meal Planner</h1>
+            <p class="sub-text">毎日の献立作りをスマートに</p>
+        </header>
+
+        <div class="home-grid">
+            <a href="/recipes" class="home-card card-recipes">
+                <div class="card-icon">📖</div>
+                <div class="card-info">
+                    <h2>レシピ一覧</h2>
+                    <p>自分だけのレシピ帳を管理</p>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+
+            <a href="/menu" class="home-card card-menu">
+                <div class="card-icon">📅</div>
+                <div class="card-info">
+                    <h2>献立カレンダー</h2>
+                    <p>1週間の献立を計画する</p>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+
+            <a href="/shopping_list" class="home-card card-shopping">
+                <div class="card-icon">🛒</div>
+                <div class="card-info">
+                    <h2>買い物リスト</h2>
+                    <p>必要な食材をチェック</p>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+        
+        <footer class="home-footer">
+            <p>© 2026 Meal Planner App</p>
+        </footer>
+    </div>
+</body>
+</html>

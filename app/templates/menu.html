@@ -1,0 +1,63 @@
+<!-- app/templates/menu.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>献立一覧</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+    <div class="menu-page-container">
+    <nav class="breadcrumb">
+        <a href="/">ホーム</a> <span>&gt;</span> 献立カレンダー
+    </nav>
+    <header class="menu-header">
+        <h1>献立カレンダー</h1>
+        <nav class="menu-nav">
+            <a href="/menu/add" class="nav-item primary">
+                <span class="icon">📋</span> 献立を編集
+            </a>
+            <a href="/shopping_list" class="nav-item secondary">
+                <span class="icon">🛒</span> 買い物リスト
+            </a>
+        </nav>
+    </header>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="sticky-col"></th>
+                        <th>月</th> <th>火</th> <th>水</th> <th>木</th> <th>金</th> <th>土</th> <th>日</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for timing in ["朝", "昼", "夜"] %}
+                        <tr>
+                            <td class="timing-col"><span>{{ timing }}</span></td>
+                            {% for day in ["月","火","水","木","金","土","日"] %}
+                                <td>
+                                    <div class="cell-content">
+                                        {% for menu in menus %}
+                                            {% for item in menu.menu_items %}
+                                                {% if item.day == day and item.timing == timing %}
+                                                    <div class="recipe-card_menu category-{{ item.recipe.dish_category.split(',')[0] }}">
+                                                        {{ item.recipe.name }}
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </div>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

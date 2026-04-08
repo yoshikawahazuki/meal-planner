@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>レシピ編集</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+    <div class="form-container">
+    <nav class="breadcrumb">
+        <a href="/">ホーム</a> <span>&gt;</span> <a href="/recipes">レシピ一覧</a> <span>&gt;</span> レシピ編集
+    </nav>
+    <h1>レシピを編集する</h1>
+
+        <form method="POST" class="recipe-form">
+            <div class="form-section">
+                <label class="main-label">レシピ名</label>
+                {% if error %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endif %}
+                <input type="text" name="recipe_name" class="input-full" value="{{ recipe.name }}" required>
+            </div>
+
+        <div class="form-section">
+            <label class="main-label">材料</label>
+            <div id = "ingredients" class="ingredients-list-container">
+                {% for ri in recipe.recipe_ingredients %}
+                    <div class="ingredient-row">
+                        {% if error %}
+                            <p style="color: red;">{{ error }}</p>
+                        {% endif %}
+
+                        <input type="text" name="ingredient_name" value="{{ ri.ingredient.name }}">
+                        <input type="number" step="any" name="quantity" value="{{ ri.quantity }}">
+                        <input type="text" name="unit" value="{{ ri.unit }}">
+                        <button type="button" onclick="this.parentElement.remove()" class="btn-ingredient-delete">削除</button>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="button" onclick="addIngredient()" class="btn-outline-add">+ 材料を追加</button>
+        </div>
+
+         <div class="form-section">
+            <label class="main-label">作り方・メモ</label>
+            <textarea name="process" rows="5" placeholder="1.野菜を切る&#10;2.炒める・・・">{{ recipe.process }}</textarea>
+        </div>
+
+        <div class="form-grid-settings">
+            <div class="form-section">
+                <label class="main-label">時間帯</label>
+                <div class="checkbox-wrapper">
+                    <label><input type="checkbox" name="time_category" value="朝"
+                        {% if recipe.time_list and '朝' in recipe.time_list %}checked{% endif %}>朝</label>
+                    <label><input type="checkbox" name="time_category" value="昼"
+                        {% if recipe.time_list and '昼' in recipe.time_list %}checked{% endif %}>昼</label>
+                    <label><input type="checkbox" name="time_category" value="夜"
+                        {% if recipe.time_list and '夜' in recipe.time_list %}checked{% endif %}>夜</label>
+                </div>
+            </div>
+            <div class="form-section">
+                <label class="main-label">カテゴリー</label>
+                <div class="checkbox-wrapper">
+                    <label><input type="checkbox" name="dish_category" value="主菜"
+                        {% if recipe.dish_list and '主菜' in recipe.dish_list %}checked{% endif %}>主菜</label>
+                    <label><input type="checkbox" name="dish_category" value="副菜"
+                        {% if recipe.dish_list and '副菜' in recipe.dish_list %}checked{% endif %}>副菜</label>
+                    <label><input type="checkbox" name="dish_category" value="汁物"
+                        {% if recipe.dish_list and '汁物' in recipe.dish_list %}checked{% endif %}>汁物</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-footer">
+            <button type="submit" class="button-green submit-large">更新する</button>
+        </div>
+    </form>
+
+    <script>
+        function addIngredient(){
+            const div = document.createElement("div");
+            div.className = "ingredient-row";
+            div.innerHTML = `
+                <input type="text" name="ingredient_name" placeholder="材料名" required>
+                <input type="number" name="quantity" placeholder="数量" step="0.1" required>
+                <input type="text" name="unit" placeholder="単位" required>
+                <button type="button" class="btn-ingredient-delete" onclick="this.parentElement.remove()">削除</button>
+            `;
+            document.getElementById("ingredients").appendChild(div);
+        }
+    </script>
+</body>
+</html>
