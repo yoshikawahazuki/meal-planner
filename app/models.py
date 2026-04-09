@@ -9,7 +9,12 @@ class Recipe(db.Model): #レシピテーブル
     time_category = db.Column(db.String(50)) #朝・昼・夜
     dish_category = db.Column(db.String(50)) #主菜・副菜・汁物
 
-    recipe_ingredients = db.relationship("RecipeIngredient", backref="recipe")
+    recipe_ingredients = db.relationship(
+        "RecipeIngredient", 
+        backref="recipe",
+        cascade="all, delete-orphan",#レシピ削除時に紐づく材料も削除する
+        passive_deletes=True
+    )
 
 class Ingredient(db.Model): #材料テーブル
     __tablename__ = "ingredients"

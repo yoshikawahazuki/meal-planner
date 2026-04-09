@@ -1002,3 +1002,119 @@ th:nth-child(8) { color: #f75959; } /* 日曜日を赤っぽく */
 .timing-col {
     height: auto !important;
 }
+
+/* --- レシピ詳細画面：レイアウト補足 --- */
+
+/* PCやタブレットなど、画面幅が広いときの設定 */
+@media (min-width: 768px) {
+    .recipe-content-grid {
+        display: grid;
+        grid-template-columns: 1fr 280px; /* 左を広く、右を固定幅に */
+        gap: 40px;
+        align-items: start;
+    }
+}
+
+/* モバイルの時は縦に並べる（デフォルト） */
+@media (max-width: 767px) {
+    .recipe-meta-section {
+        margin-top: 20px;
+    }
+}
+
+/* 材料リストの「点々」を機能させる */
+.ingredient-item {
+    display: flex;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.ingredient-item .spacer-dots {
+    flex-grow: 1; /* これで隙間を埋める */
+    margin: 0 10px;
+    border-bottom: 2px dotted #ccc;
+    height: 12px;
+}
+
+.ingredient-item .ing-amount {
+    font-weight: bold;
+    color: #4CAF50;
+    white-space: nowrap;
+}
+
+/* 作り方ボックスの改行設定 */
+.recipe-process-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    line-height: 1.8;
+    color: #444;
+}
+
+/* タグの見た目を調整 */
+.tag-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+/* ナビゲーションエリアを横並びに */
+.recipe-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* ボタン同士の隙間 */
+}
+
+/* 削除フォームもインライン要素にする */
+.delete-form {
+    display: inline;
+}
+
+/* 共通のボタンベース（既存のnav-itemを上書き・補足） */
+.nav-item {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+/* 編集ボタン（緑系） */
+.btn-edit {
+    background-color: #fff;
+    color: #4CAF50;
+    border: 1px solid #4CAF50;
+}
+
+.btn-edit:hover {
+    background-color: #f0fdf4;
+    transform: translateY(-2px);
+}
+
+/* 削除ボタン（赤系） */
+.btn-delete {
+    background-color: #fff;
+    color: #e74c3c;
+    border: 1px solid #ffcccc;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background-color: #e74c3c; /* ホバーで塗りつぶし */
+    color: white;
+    border-color: #e74c3c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+}
+
+/* アイコンの微調整 */
+.nav-item .icon {
+    font-size: 1.1rem;
+}

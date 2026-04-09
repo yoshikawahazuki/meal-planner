@@ -1,61 +1,81 @@
 <!DOCTYPE html>
 <html>
-
+<body>
 <head>
     <title>{{ recipe.name }}</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
-<body>
-    <div class="recipe-detail">
 
-        <div class="title-row">
-            <div class="recipe-title">{{ recipe.name }}</div>
+    <div class="recipe-detail container">
+        <nav class="breadcrumb">
+            <a href="/">ホーム</a> <span>&gt;</span> <a href="/recipes">レシピ一覧</a> <span>&gt;</span> レシピ詳細
+        </nav>
 
-            <div class="action-buttons">
-                <a href="/recipes/{{ recipe.id }}/edit" class="button-green">編集</a>
-                <form action="/recipes/{{ recipe.id }}/delete" method="POST" onsubmit="return confirm('削除しますか？');">
-                    <button type="submit" class="button-red">削除</button>
-                </form>
+            <header class="recipe-header">
+                <h1 class="recipe-title">{{ recipe.name }}</h1>
+
+            <div class="recipe-nav">
+            <a href="/recipes/{{ recipe.id }}/edit" class="nav-item btn-edit">
+                <span class="icon">✏️</span> 編集
+            </a>
+            <form action="/recipes/{{ recipe.id }}/delete" method="POST" onsubmit="return confirm('削除しますか？');" style="display: inline;">
+                <button type="submit" class="nav-item btn-delete">
+                    <span class="icon">🗑️</span> 削除
+                </button>
+            </form>
+        </div>
+    </header>
+
+    <div class="recipe-content-grid">
+        <div class="recipe-main-section">
+            <section class="recipe-section">
+                <h2>材料</h2>
+                <div class="ingredients-list-card">
+                    {% for ri in recipe.recipe_ingredients %}
+                    <div class="ingredient-item">
+                        <span class="ing-name">{{ ri.ingredient.name }}</span>
+                        <span class="spacer-dots"></span>
+                        <span class="ing-amount">
+                            {{ ri.quantity if ri.quantity % 1 != 0 else ri.quantity | int }} {{ ri.unit }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            {% if recipe.process %}
+            <section class="recipe-section">
+                <h2>作り方・メモ</h2>
+                <div class="recipe-process-box">
+                    {{ recipe.process | replace('\n', '<br>') | safe }}
+                </div>
+            </section>
+            {% endif %}
+        </div>
+
+        <aside class="recipe-meta-section">
+            <div class="meta-card">
+                <h3>分類</h3>
+                <div class="meta-item">
+                    <span class="meta-label">時間帯</span>
+                    <div class="tag-group">
+                        {% for t in recipe.time_category.split(',') %}
+                            <span class="tag tag-time">{{ t }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">カテゴリー</span>
+                    <div class="tag-group">
+                        {% for d in recipe.dish_category.split(',') %}
+                            <span class="tag tag-dish category-{{ d }}">{{ d }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="recipe-section">
-            <h2>材料</h2>
-            <ul class="ingredients-list">
-                {% for ri in recipe.recipe_ingredients %}
-                <li>
-                    {{ ri.ingredient.name }}:
-                    {{ ri.quantity if ri.quantity % 1 != 0 else ri.quantity | int }} {{ ri.unit }}
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        {% if recipe.process %}
-        <div class="recipe-section">
-            <h2>作り方・メモ</h2>
-            <p class="recipe-process">{{ recipe.process }}</p>
-        </div>
-        {% endif %}
-
-        <div class="recipe-section">
-            <h4>時間帯</h4>
-            {% for t in recipe.time_category.split(',') %}
-                <span class="tag">{{ t }}</span>
-            {% endfor %}
-        </div>
-
-        <div class="recipe-section">
-            <h4>カテゴリー</h4>
-            {% for d in recipe.dish_category.split(',') %}
-                <span class="tag">{{ d }}</span>
-            {% endfor %}
-        </div>
-
-        <a href="/recipes" class="back-link">← 戻る</a>
-
+        </aside>
     </div>
-</body>
-</html>
+
+</div>
