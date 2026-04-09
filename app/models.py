@@ -11,9 +11,13 @@ class Recipe(db.Model): #レシピテーブル
 
     recipe_ingredients = db.relationship(
         "RecipeIngredient", 
-        backref="recipe",
         cascade="all, delete-orphan",#レシピ削除時に紐づく材料も削除する
         passive_deletes=True
+    )
+
+    menu_items = db.relationship(
+        'MenuItem', 
+        cascade="all, delete-orphan" # レシピ削除時に紐づく献立も削除する
     )
 
 class Ingredient(db.Model): #材料テーブル
@@ -32,6 +36,7 @@ class RecipeIngredient(db.Model): #レシピと材料テーブル
     __tablename__ = "recipe_ingredients"
 
     id = db.Column(db.Integer, primary_key=True) #主キー
+    recipe = db.relationship("Recipe", back_populates="recipe_ingredients")
 
     recipe_id = db.Column(
         db.Integer, #int型

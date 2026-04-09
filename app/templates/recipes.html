@@ -43,7 +43,7 @@
 
                     <div class="recipe-card-footer">
                         <a href="/recipes/{{ recipe.id }}/edit" class="btn-text edit">編集</a>
-                        <form action="/recipes/{{ recipe.id }}/delete" method="POST" onsubmit="return confirm('削除してもいいですか？');" style="display:inline; ">
+                        <form action="/recipes/{{ recipe.id }}/delete" method="POST" onsubmit="return confirm('このレシピを削除しますか？\n(献立カレンダーに登録されている場合、カレンダーからも削除されます)');" style="display:inline; ">
                             <button type="submit" class="btn-text delete" >削除</button>
                         </form>
                     </div>
