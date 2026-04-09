@@ -43,9 +43,15 @@
                                         {% for menu in menus %}
                                             {% for item in menu.menu_items %}
                                                 {% if item.day == day and item.timing == timing %}
-                                                    <div class="recipe-card_menu category-{{ item.recipe.dish_category.split(',')[0] }}">
-                                                        {{ item.recipe.name }}
-                                                    </div>
+                                                    {% if item.recipe %}
+                                                        <div class="recipe-card_menu category-{{ item.recipe.dish_category.split(',')[0] }}">
+                                                            {{ item.recipe.name }}
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="recipe-card_menu" style="border-left-color: #ccc; color: #999;">
+                                                            このレシピは削除されました
+                                                        </div>
+                                                    {% endif %}
                                                 {% endif %}
                                             {% endfor %}
                                         {% endfor %}
