@@ -44,9 +44,9 @@
                                             {% for item in menu.menu_items %}
                                                 {% if item.day == day and item.timing == timing %}
                                                     {% if item.recipe %}
-                                                        <div class="recipe-card_menu category-{{ item.recipe.dish_category.split(',')[0] }}">
+                                                        <a href="/recipes/{{ item.recipe.id }}" class="recipe-card_menu category-{{ item.recipe.dish_category.split(',')[0] if item.recipe.dish_category else 'default'}}">
                                                             {{ item.recipe.name }}
-                                                        </div>
+                                                        </a>
                                                     {% else %}
                                                         <div class="recipe-card_menu" style="border-left-color: #ccc; color: #999;">
                                                             このレシピは削除されました

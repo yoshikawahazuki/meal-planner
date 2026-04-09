@@ -237,12 +237,37 @@ th { background: #f8f9fa; color: #666; font-size: 0.9rem; }
 .cell-content::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
 
 .recipe-card_menu {
-    border-left: 4px solid #ddd; padding: 5px 8px; background: #fff; font-size: 0.8rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-radius: 4px;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-style: solid;
+    border-width: 1px 1px 1px 4px;
+    border-color: #ddd;
+    border-radius: 4px;
+    padding: 5px 8px;
+    background-color: #fff !important; 
+    margin-bottom: 4px;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; 
+    overflow: hidden;   
+}
+.recipe-card_menu:hover {
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    background-color: #fff !important; 
+    text-decoration: none;   
 }
 .recipe-card_menu.category-主菜 { border-left-color: #ff7675; background: #fff5f5; }
 .recipe-card_menu.category-副菜 { border-left-color: #55efc4; background: #f0fff4; }
 .recipe-card_menu.category-汁物 { border-left-color: #74b9ff; background: #f0f7ff; }
+.recipe-card_menu::before,
+.recipe-card_menu::after {
+    display: none !important;
+    content: none !important;
+}
 
 /* 献立追加画面 */
 .day-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-bottom: 30px; }
