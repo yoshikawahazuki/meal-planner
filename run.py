@@ -1,7 +1,8 @@
-from app import create_app
+from app import app, db 
 
-app = create_app()
+# DB自動作成
+with app.app_context():
+    db.create_all()
 
-if __name__ == '__main__':
-    # host='0.0.0.0' を追加することで、同じWi-Fi内のスマホからアクセス可能になります
-    app.run(host='0.0.0.0', port=5001, debug=True)
+if __name__ == "__main__":
+    app.run()
