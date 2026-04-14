@@ -148,7 +148,10 @@ body {
 
 /* レシピ詳細 */
 .recipe-detail { max-width: 850px; margin: 30px auto; }
-.recipe-section { margin-top: 25px; }
+.recipe-section { 
+    margin-top: 25px; 
+    text-align: left;
+}
 .recipe-section h2 { border-left: 5px solid #4CAF50; padding-left: 10px; font-size: 1.2rem; margin-bottom: 15px; }
 
 @media (min-width: 768px) {
@@ -156,7 +159,17 @@ body {
 }
 
 .recipe-process-box {
-    background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #eee; line-height: 1.8; white-space: pre-wrap;
+    background: #fff; 
+    padding: 20px; 
+    border-radius: 12px; 
+    border: 1px solid #eee; 
+    line-height: 1.8; 
+    white-space: pre-wrap;
+    text-align: left !important; 
+    display: block;
+    align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .recipe-nav { display: flex; gap: 10px; align-items: center; }
