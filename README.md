@@ -61,10 +61,22 @@
 - **Frontend**: HTML5 / CSS3 / JavaScript
 - **Database**: SQLite (SQLAlchemy)
 
-## 🚀 ローカルでの起動方法
+## 🌐 デモURL
 
-1. リポジトリをクローン
-   ```bash
-   git clone https://github.com/hazukiyoshikawa/meal-planner.git
-   cd meal-planner
-   python3 run.py
+実際にアプリはこちらから利用できます👇  
+https://meal-planner-14ng.onrender.com
+
+---
+
+## ⚠️ 注意事項
+
+- このアプリは無料デプロイ環境（Render）で動作しています
+- データベースは全ユーザー共通です（個別アカウント機能は未実装）
+- サーバーが一定時間アクセスされないとスリープする場合があります
+
+---
+
+## 💡 補足
+
+現在は学習・ポートフォリオ目的のため、
+認証機能は実装していませんが、今後ユーザーごとの管理機能を追加予定です。
